@@ -4002,7 +4002,7 @@ XXH3_len_129to240_64b(const xxh_u8* XXH_RESTRICT input, size_t len,
     #define XXH3_MIDSIZE_LASTOFFSET  17
 
     {   xxh_u64 acc = len * XXH_PRIME64_1;
-        unsigned int const nbRounds = (unsigned int)len / 16;
+        unsigned int const nbRounds = (unsigned int)(len - 1) / 16;
         unsigned int i;
         for (i=0; i<8; i++) {
             acc += XXH3_mix16B(input+(16*i), secret+(16*i), seed);
@@ -5713,7 +5713,7 @@ XXH3_len_129to240_128b(const xxh_u8* XXH_RESTRICT input, size_t len,
     XXH_ASSERT(128 < len && len <= XXH3_MIDSIZE_MAX);
 
     {   XXH128_hash_t acc;
-        unsigned int const nbRounds = (unsigned int)len / 32;
+        unsigned int const nbRounds = (unsigned int)(len - 1) / 32;
         unsigned int i;
         acc.low64 = len * XXH_PRIME64_1;
         acc.high64 = 0;
